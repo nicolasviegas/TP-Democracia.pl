@@ -3,18 +3,18 @@
 
 /* PUNTO 1 CANDIDATOS Y PARTIDOS */
 %      nombre,edad
-persona(frank,50).
-persona(claire,52).
-persona(catherine,59).
-persona(peter,26).
-persona(garrett,64).
-persona(linda,30).
-persona(jackie,38).
-persona(seth,_). %% EDAD INVENTADa
-persona(heather,51).
+candidato(frank,50).
+candidato(claire,52).
+candidato(catherine,59).
+candidato(peter,26).
+candidato(garrett,64).
+candidato(linda,30).
+candidato(jackie,38).
+candidato(seth,_). %% EDAD INVENTADa
+candidato(heather,51).
 
-/*--------------------------------*/
-%            persona,partido 
+/*------------*/
+%            candidato,partido 
 esDelPartido(frank,rojo).
 esDelPartido(claire,rojo).
 esDelPartido(catherine,rojo).
@@ -24,7 +24,7 @@ esDelPartido(jackie,amarillo).
 esDelPartido(seth,amarillo).
 esDelPartido(heather,amarillo).
 
-/*--------------------------------*/
+/*------------*/
 %%          nombre  , habitantes
 provincia(buenosAires,15355000).
 provincia(chaco,1143201).
@@ -42,12 +42,12 @@ provincia(laPampa,349299).
 provincia(corrientes,992595).
 provincia(misiones,118946).
 
-/*--------------------------------*/
+/*------------*/
 partido(rojo).
 partido(azul).
 partido(amarillo).
 partido(violeta).
-/*--------------------------------*/
+/*------------*/
 %%          partido, provincia
 sePostulaEn(azul, buenosAires).
 sePostulaEn(azul, chaco).
@@ -111,8 +111,8 @@ intencionDeVotoEn(neuquen, rojo, 80).
 intencionDeVotoEn(neuquen, azul, 10).
 intencionDeVotoEn(neuquen, amarillo, 0).
 intencionDeVotoEn(santaFe, rojo, 20).
-intencionDeVotoEn(santaFe, azul, 40).
-intencionDeVotoEn(santaFe, amarillo, 40).
+intencionDeVotoEn(santaFe, azul, 0).
+intencionDeVotoEn(santaFe, amarillo, 0).
 intencionDeVotoEn(cordoba, rojo, 10).
 intencionDeVotoEn(cordoba, azul, 60).
 intencionDeVotoEn(cordoba, amarillo, 20).
@@ -141,4 +141,13 @@ intencionDeVotoEn(misiones, rojo, 90).
 intencionDeVotoEn(misiones, azul, 0).
 intencionDeVotoEn(misiones, amarillo, 0).
 
+/*------------*/
+leGanaA(Candidato1,Candidato2,Provincia):-
+    esDelPartido(Candidato1,Partido1),
+    esDelPartido(Candidato2,Partido2),
+  % sePostulaEn(Partido2,Provincia),
+  % sePostulaEn(Partido2,Provincia),
+    intencionDeVotoEn(Provincia,Partido1,Cantidad1),
+    intencionDeVotoEn(Provincia,Partido2,Cantidad2),
+    Cantidad1 > Cantidad2.
 
