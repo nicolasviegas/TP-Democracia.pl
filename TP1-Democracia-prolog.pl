@@ -143,27 +143,30 @@ intencionDeVotoEn(misiones, amarillo, 0).
 
 
 /*------------*/
-leGanaA(Candidato1,Candidato2,Provincia):-
-    esDelPartido(Candidato1,Partido),
-    esDelPartido(Candidato2,Partido),
+ganaPartido(Partido, Partido, Provincia):-
     sePostulaEn(Partido, Provincia).
 
-leGanaA(Candidato1,Candidato2,Provincia):-
-    esDelPartido(Candidato1,Partido1),
-    esDelPartido(Candidato2,Partido2),
+ganaPartido(Partido1, Partido2, Provincia):-
     sePostulaEn(Partido1, Provincia),
     sePostulaEn(Partido2, Provincia),
     intencionDeVotoEn(Provincia,Partido1,Cantidad1),
     intencionDeVotoEn(Provincia,Partido2,Cantidad2),
     Cantidad1 > Cantidad2.
 
-leGanaA(Candidato1,Candidato2,Provincia):-
-    esDelPartido(Candidato1,Partido1),
-    esDelPartido(Candidato2,Partido2),
+ganaPartido(Partido1, Partido2, Provincia):-
     sePostulaEn(Partido1, Provincia),
     not(sePostulaEn(Partido2, Provincia)).
 
-/*--------------------------------*/
+leGanaA(Candidato1,Candidato2,Provincia):-
+    esDelPartido(Candidato1,Partido1),
+    esDelPartido(Candidato2,Partido2),
+    ganaPartido(Partido1, Partido2, Provincia).
 
+/*--------------------------------*/
+/* PUNTO 4 EL GRAN CANDIDATO */
+
+elGranCandidato(Candidato):-
+    forall(, 'Param2', 'Param3')
+    
         
       
