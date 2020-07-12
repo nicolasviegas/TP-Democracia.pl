@@ -111,8 +111,8 @@ intencionDeVotoEn(neuquen, rojo, 80).
 intencionDeVotoEn(neuquen, azul, 10).
 intencionDeVotoEn(neuquen, amarillo, 0).
 intencionDeVotoEn(santaFe, rojo, 20).
-intencionDeVotoEn(santaFe, azul, 0).
-intencionDeVotoEn(santaFe, amarillo, 0).
+intencionDeVotoEn(santaFe, azul, 40).
+intencionDeVotoEn(santaFe, amarillo, 40).
 intencionDeVotoEn(cordoba, rojo, 10).
 intencionDeVotoEn(cordoba, azul, 60).
 intencionDeVotoEn(cordoba, amarillo, 20).
@@ -141,13 +141,29 @@ intencionDeVotoEn(misiones, rojo, 90).
 intencionDeVotoEn(misiones, azul, 0).
 intencionDeVotoEn(misiones, amarillo, 0).
 
+
 /*------------*/
+leGanaA(Candidato1,Candidato2,Provincia):-
+    esDelPartido(Candidato1,Partido),
+    esDelPartido(Candidato2,Partido),
+    sePostulaEn(Partido, Provincia).
+
 leGanaA(Candidato1,Candidato2,Provincia):-
     esDelPartido(Candidato1,Partido1),
     esDelPartido(Candidato2,Partido2),
-  % sePostulaEn(Partido2,Provincia),
-  % sePostulaEn(Partido2,Provincia),
+    sePostulaEn(Partido1, Provincia),
+    sePostulaEn(Partido2, Provincia),
     intencionDeVotoEn(Provincia,Partido1,Cantidad1),
     intencionDeVotoEn(Provincia,Partido2,Cantidad2),
     Cantidad1 > Cantidad2.
 
+leGanaA(Candidato1,Candidato2,Provincia):-
+    esDelPartido(Candidato1,Partido1),
+    esDelPartido(Candidato2,Partido2),
+    sePostulaEn(Partido1, Provincia),
+    not(sePostulaEn(Partido2, Provincia)).
+
+/*--------------------------------*/
+
+        
+      
