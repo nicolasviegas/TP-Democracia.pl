@@ -190,12 +190,24 @@ elGranCandidato(Candidato):-
     ganaEnTodasLasProvincias(Partido),
     esElMasJovenDelPartido(Candidato).
 
+% Para estar seguros de que frank es el único gran candidato podemos hacer la siguiente consulta:
+% elGranCandidato(Candidato).
+% la consulta está relacionada con el concepto de inversibilidad y nos va a decir todos los candidatos que
+% cumplan con todas las condiciones que pusimos.
+
 
  /*--------------------------------*/
  /* PUNTO 5 MALAS CONSULTORAS */       
 
-ajusteConsultora(Partido1,Provincia,PorcentajeVotos):-
- leGanaAtodosEnLaProvincia(Partido1,Provincia),
- PorcentajeVotos is PorcentajeVotos*20.
+ajusteConsultora(Partido1,Provincia,Votos):-
+    leGanaAtodosEnLaProvincia(Partido1,Provincia),
+    intencionDeVotoEn(Provincia,Partido1,VotosViejos),
+    Votos is VotosViejos - ((VotosViejos*20)/100).
 
-     
+ajusteConsultora(Partido1,Provincia,Votos):-
+    not(leGanaAtodosEnLaProvincia(Partido1,Provincia)),
+    intencionDeVotoEn(Provincia,Partido1,VotosViejos),
+    Votos is (VotosViejos + (VotosViejos*5)/100).
+
+% Para evaluar los predicados con los valores reales de votos deberíamos modificar solamente "ganaPartido/3" 
+%para que use los valores corregidos.
