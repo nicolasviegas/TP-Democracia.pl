@@ -164,9 +164,38 @@ leGanaA(Candidato1,Candidato2,Provincia):-
 
 /*--------------------------------*/
 /* PUNTO 4 EL GRAN CANDIDATO */
+leGanaAtodosEnLaProvincia(Ganador, Provincia):-
+    forall(sePostulaEn(Partido, Provincia), ganaPartido(Ganador,Partido,Provincia)).
+
+ganaEnTodasLasProvincias(Partido):-
+    partido(Partido),
+    forall(sePostulaEn(Partido, Provincia), leGanaAtodosEnLaProvincia(Partido,Provincia)).
+
+esMasJovenQue(Candidato1, Candidato2):-
+    candidato(Candidato1, Edad1),
+    candidato(Candidato2, Edad2),
+    Edad1 < Edad2.
+
+demasPersonasDelPartidoDelCandidato(Candidato, Persona):-
+    esDelPartido(Candidato, Partido),
+    esDelPartido(Persona, Partido),
+    Candidato \= Persona.
+
+esElMasJovenDelPartido(Candidato):-
+    forall(demasPersonasDelPartidoDelCandidato(Candidato, Personas), esMasJovenQue(Candidato, Personas)).
+   
 
 elGranCandidato(Candidato):-
-    forall(, 'Param2', 'Param3')
-    
-        
-      
+    esDelPartido(Candidato, Partido),
+    ganaEnTodasLasProvincias(Partido),
+    esElMasJovenDelPartido(Candidato).
+
+
+ /*--------------------------------*/
+ /* PUNTO 5 MALAS CONSULTORAS */       
+
+ajusteConsultora(Partido1,Provincia,PorcentajeVotos):-
+ leGanaAtodosEnLaProvincia(Partido1,Provincia),
+ PorcentajeVotos is PorcentajeVotos*20.
+
+     
